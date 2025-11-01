@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 const headerLinks = [
   {
@@ -34,13 +36,15 @@ const LinkComponent = () => {
 export default LinkComponent;
 
 const NavLink = ({ link }: { link: { route: string; name: string } }) => {
+  const pathName = usePathname();
+  const isActive = pathName.includes(link.name);
   return (
     <li key={link.route}>
       <Link
         href={link.route}
         key={link.name}
         prefetch={true}
-        className="hover:text-primary transition-all duration-300 hover:scale-x-110"
+        className={`hover:text-primary transition-all duration-300 hover:scale-x-110 ${isActive && "text-primary"}`}
       >
         {link.name}
       </Link>

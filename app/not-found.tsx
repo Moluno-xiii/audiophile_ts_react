@@ -5,9 +5,9 @@ import Button from "./_components/ui/reusables/Button";
 const NotFound: React.FC = () => {
   const router = useRouter();
   return (
-    <div className="flex flex-col gap-y-3">
-      Page not found, go back home
-      <Button text="Not found" onClick={() => router.push("/")} />
+    <div className="bg-light flex min-h-dvh min-w-dvw flex-col items-center justify-center gap-y-3">
+      <p className="text-darker">Page not found</p>
+      <Button text="Go back home" onClick={() => router.push("/")} />
     </div>
   );
 };
