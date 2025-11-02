@@ -17,6 +17,6 @@
   --color-darker: #000000;
   --color-light: #f1f1f1;
   --color-lighter: #ffffff;
-  --font-manrope: var(--font-manrope);
+  --color-border: #cfcfcf --font-manrope: var(--font-manrope);
   --breakpoint-mod: 1110px;
 }

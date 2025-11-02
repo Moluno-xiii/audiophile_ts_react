@@ -9,7 +9,7 @@ interface Props extends ComponentProps<"button"> {
 
 const modifiedStyles: Record<"default" | "transparent" | "link", string> = {
   default:
-    "bg-primary hover:bg-primary-light py-2 md:py-[15px] border-none  text-lighter",
+    "bg-primary hover:bg-primary-light py-2 md:py-[15px] border-none text-lighter",
   transparent:
     "bg-transparent hover:text-lighter py-2 md:py-[15px] border hover:bg-darker border-darker  text-darker",
   link: "bg-transparent hover:text-primary text-darker border-none",

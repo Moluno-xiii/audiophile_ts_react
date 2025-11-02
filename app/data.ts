@@ -466,6 +466,27 @@ const earphoneDetailsPageData: DeviceDetails[] = [
   },
 ];
 
+const cart = [
+  {
+    name: "xx99 mk ii",
+    amount: 1,
+    price: 2999,
+    imageSrc: "/xx99-headphone.png",
+  },
+  {
+    name: "xx59",
+    amount: 2,
+    price: 899,
+    imageSrc: "/xx59-headphone.png",
+  },
+  {
+    name: "yx1",
+    amount: 1,
+    price: 599,
+    imageSrc: "/yxi-earphone.png",
+  },
+];
+
 export type { PageDataType };
 export {
   headPhonesPageData,
@@ -474,4 +495,5 @@ export {
   headPhoneDetailsPageData,
   speakerDetailsPageData,
   earphoneDetailsPageData,
+  cart,
 };

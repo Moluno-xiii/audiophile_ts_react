@@ -6,16 +6,18 @@ import { FaTwitter, FaFacebookSquare } from "react-icons/fa";
 const Footer: React.FC = () => {
   return (
     <footer className="bg-darker">
-      <div className="mx-auto flex max-w-[1110px] flex-col gap-y-9 px-3 pt-[75px] pb-12 md:px-5">
+      <div className="mx-auto flex max-w-[1110px] flex-col gap-y-9 px-3 pb-12 md:px-5">
         <section className="flex flex-col justify-between max-lg:gap-y-8 lg:flex-row">
           <Image
             src={"/audiophile.svg"}
             alt="Audiophile logo"
             width={143}
             height={25}
-            className="max-md:self-center"
+            className="border-primary border-t-2 pt-[75px] max-md:self-center"
           />
-          <LinkComponent />
+          <div className="pt-[75px]">
+            <LinkComponent />
+          </div>
         </section>
         <section className="flex flex-col justify-between lg:flex-row">
           <p className="flex-1 text-[15px] text-white/50">
@@ -54,7 +56,7 @@ const Footer: React.FC = () => {
           </p>
           <ul
             aria-labelledby="social media links"
-            className="flex flex-row gap-x-3 text-white max-md:mt-6 md:gap-x-1"
+            className="flex flex-row gap-x-3 text-white max-md:mt-6 md:gap-x-1 lg:hidden"
           >
             {/* <ul
             aria-labelledby="social media links"

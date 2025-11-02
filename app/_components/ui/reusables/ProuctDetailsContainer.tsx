@@ -1,10 +1,11 @@
 "use client";
 import { DeviceDetails } from "@/app/types";
-import GoBack from "./GoBack";
 import Image from "next/image";
-import Button from "./Button";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import AudioGearSectionFooter from "./AudioGearSectionFooter";
+import Button from "./Button";
+import GoBack from "./GoBack";
 import SpeakerDisplay from "./SpeakerDisplay";
 
 interface Props {
@@ -13,13 +14,22 @@ interface Props {
 }
 
 const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
+  const [itemAmount, setItemAmount] = useState(1);
   const router = useRouter();
   const deviceData = data.find((h) => h.id === id);
+
+  const decrementItemAmount = () => {
+    itemAmount >= 1 ? setItemAmount(itemAmount - 1) : null;
+  };
+
+  const incrementAmount = () => {
+    setItemAmount(itemAmount + 1);
+  };
   return (
-    <section className="mx-auto flex max-w-[1110px] flex-col">
+    <section className="mx-auto flex max-w-[1110px] flex-col px-6 md:px-10">
       <GoBack />
       <section
-        className="flex flex-col justify-between gap-x-4 md:gap-x-[124.5px] lg:flex-row"
+        className="flex flex-col justify-between gap-x-4 md:flex-row md:gap-x-[69px] lg:gap-x-[124.5px]"
         aria-labelledby="device description section"
       >
         <div className="bg-light flex flex-col items-center justify-center rounded-md max-lg:mb-13 md:px-24 md:py-16">
@@ -28,7 +38,14 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
             alt={`Image for ${deviceData?.title}`}
             width={349.24}
             height={386}
-            className="flex-1"
+            className="hidden lg:block lg:flex-1"
+          />
+          <Image
+            src={deviceData!.mainImage}
+            alt={`Image for ${deviceData?.title}`}
+            width={280}
+            height={480}
+            className="block max-md:size-[327px] md:min-h-[480px] md:max-w-[200px] lg:hidden"
           />
         </div>
         <div className="flex flex-1 flex-col justify-center gap-y-6">
@@ -45,7 +62,7 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
             $ {deviceData!.price.toLocaleString()}
           </p>
           <div className="flex flex-row items-center gap-x-4">
-            <p>add and remove f</p>
+            head
             <Button
               text="add to cart"
               variant="default"
@@ -54,9 +71,10 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
           </div>
         </div>
       </section>
+
       <section
         aria-labelledby="device features section"
-        className="mt-40 flex flex-row justify-between gap-x-[125px]"
+        className="mt-[88px] flex flex-col justify-between gap-x-[125px] gap-y-[120px] md:mt-[120px] lg:mt-40 lg:flex-row"
       >
         <div className="flex flex-1 flex-col gap-y-8">
           <h2 className="text-darker text-start text-[32px] font-bold uppercase">
@@ -70,11 +88,11 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
             ))}
           </ul>
         </div>
-        <div className="flex w-[350px] flex-col gap-y-8">
-          <h2 className="text-darker text-start text-[32px] font-bold uppercase">
+        <div className="flex flex-col justify-between gap-y-8 md:flex-row lg:w-[350px] lg:flex-col">
+          <h2 className="text-darker text-start text-[32px] font-bold uppercase max-lg:flex-1">
             in the box
           </h2>
-          <ul className="flex flex-col gap-y-2">
+          <ul className="flex flex-col gap-y-2 max-lg:flex-1">
             {deviceData?.inTheBox.map((item) => (
               <li
                 className="flex flex-row items-center gap-x-[21px]"
@@ -89,24 +107,25 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
           </ul>
         </div>
       </section>
+
       <section
         aria-labelledby="device images section"
-        className="mt-40 flex flex-row gap-x-[30px]"
+        className="mt-[88px] flex flex-col gap-x-[30px] max-md:gap-y-5 md:mt-[120px] md:flex-row lg:mt-40"
       >
-        <div className="flex flex-col gap-y-8">
+        <div className="flex flex-col gap-y-5 lg:gap-y-8">
           <Image
             height={280}
             width={445}
             alt={`Sample images for ${deviceData?.title}`}
             src={deviceData!.images[0].src}
-            className="max-h-[280px]"
+            className="max-lg:h-[174px] lg:max-h-[280px]"
           />
           <Image
             height={280}
             width={445}
             alt={`Sample images for ${deviceData?.title}`}
             src={deviceData!.images[1].src}
-            className=""
+            className="max-lg:h-[174px] lg:max-h-[280px]"
           />
         </div>
         <div>
@@ -115,23 +134,28 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
             width={635}
             alt={`Sample images for ${deviceData?.title}`}
             src={deviceData!.images[2].src}
+            className="max-lg:h-[368px]"
           />
         </div>
       </section>
+
       <section
         aria-labelledby="similar devices you might like section"
-        className="mt-40 flex flex-col gap-y-16"
+        className="mt-[88px] flex flex-col gap-y-10 md:mt-[120px] md:gap-y-16 lg:mt-40"
       >
-        <h2 className="text-[32px] font-bold uppercase">you may also like</h2>
-        <ul className="flex flex-row gap-x-[30px]">
+        <h2 className="text-darker text-center text-2xl font-bold uppercase md:text-[32px]">
+          you may also like
+        </h2>
+        <ul className="flex flex-col justify-between gap-x-3 gap-y-14 md:flex-row lg:gap-x-[30px]">
           {deviceData?.recommendedDevices.map((device) => (
-            <li key={device.id} className="flex flex-col gap-y-8">
-              <div className="bg-light min-h-[318px] rounded-lg px-[100px] py-[62px]">
+            <li key={device.id} className="flex flex-col gap-y-8 lg:gap-y-8">
+              <div className="bg-light justify-center rounded-lg py-4 max-md:flex md:min-h-[318px] md:px-[37px] md:py-[62px] lg:px-[100px] lg:py-[62px]">
                 <Image
                   alt={`Image of ${device.name}`}
                   height={193}
                   width={148.31}
                   src={device.imageSrc}
+                  className="max-md:self-center"
                 />
               </div>
               <p className="text-darker text-center text-2xl font-bold uppercase">
@@ -149,7 +173,7 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
       <div className="mt-60">
         <SpeakerDisplay />
       </div>
-      <div className="-mt-60">
+      <div className="lg:-mt-60">
         <AudioGearSectionFooter />
       </div>
     </section>
