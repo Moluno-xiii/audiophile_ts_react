@@ -1,11 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import AudioGearSectionFooter from "./ui/reusables/AudioGearSectionFooter";
 import Button from "./ui/reusables/Button";
 import SpeakerDisplay from "./ui/reusables/SpeakerDisplay";
-import PageTitle from "./ui/PageTitle";
-import { useRouter } from "next/navigation";
 
 type Props = {
   devicesData: {

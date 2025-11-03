@@ -7,6 +7,9 @@ import AudioGearSectionFooter from "./AudioGearSectionFooter";
 import Button from "./Button";
 import GoBack from "./GoBack";
 import SpeakerDisplay from "./SpeakerDisplay";
+import useCart from "@/app/_contexts/CartContextProvider";
+import { HiOutlineMinusSmall } from "react-icons/hi2";
+import { GoPlus } from "react-icons/go";
 
 interface Props {
   data: DeviceDetails[];
@@ -17,9 +20,12 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
   const [itemAmount, setItemAmount] = useState(1);
   const router = useRouter();
   const deviceData = data.find((h) => h.id === id);
+  const { addCartItem } = useCart();
 
   const decrementItemAmount = () => {
-    itemAmount >= 1 ? setItemAmount(itemAmount - 1) : null;
+    if (itemAmount >= 1) {
+      setItemAmount(itemAmount - 1);
+    }
   };
 
   const incrementAmount = () => {
@@ -62,11 +68,34 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
             $ {deviceData!.price.toLocaleString()}
           </p>
           <div className="flex flex-row items-center gap-x-4">
-            head
+            <button className="bg-light text-darker flex flex-row items-center gap-x-5 px-[15.5px] py-2 text-[13px] font-bold md:py-[15px]">
+              <GoPlus
+                height={18}
+                width={16}
+                color="black"
+                className="hover:text-primary cursor-pointer transition-all duration-200"
+                onClick={incrementAmount}
+              />
+              <span>{itemAmount}</span>
+              <HiOutlineMinusSmall
+                height={18}
+                width={16}
+                color="black"
+                className="hover:text-primary cursor-pointer transition-all duration-200"
+                onClick={decrementItemAmount}
+              />
+            </button>
             <Button
               text="add to cart"
               variant="default"
-              //   onClick={() => router.push(deviceData?.route)}
+              onClick={() =>
+                addCartItem({
+                  imageUrl: deviceData!.mainImage,
+                  name: deviceData!.title,
+                  price: deviceData!.price,
+                  quantity: itemAmount,
+                })
+              }
             />
           </div>
         </div>

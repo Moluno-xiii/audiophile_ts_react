@@ -7,6 +7,7 @@ type Props = {
   name?: string;
   value?: string;
   additionalStyles?: string;
+  error?: string;
 } & ComponentProps<"input">;
 
 const Input: React.FC<Props> = ({
@@ -16,6 +17,7 @@ const Input: React.FC<Props> = ({
   type = "text",
   value,
   additionalStyles,
+  error,
   ...rest
 }) => {
   if (variant === "option") {
@@ -37,12 +39,17 @@ const Input: React.FC<Props> = ({
   }
   return (
     <div className={`${additionalStyles} flex flex-col gap-y-2`}>
-      <label
-        className="text-darker text-xs font-bold capitalize"
-        htmlFor={name}
-      >
-        {label}
-      </label>
+      <div className="flex flex-row items-center justify-between">
+        <label
+          className="text-darker text-xs font-bold capitalize"
+          htmlFor={name}
+        >
+          {label}
+        </label>
+        {error && (
+          <span className="text-xs text-red-600 md:text-sm">{error}</span>
+        )}
+      </div>
       <input
         {...rest}
         type={type}

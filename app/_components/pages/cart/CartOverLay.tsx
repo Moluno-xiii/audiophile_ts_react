@@ -5,19 +5,24 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { GoPlus } from "react-icons/go";
 import { HiOutlineMinusSmall } from "react-icons/hi2";
-import { cart } from "../data";
-// import { IoMdClose } from "react-icons/io";
+import useCart from "../../../_contexts/CartContextProvider";
 
 type Props = {
   onClose: () => void;
 };
 
 const CartOverLay: React.FC<Props> = ({ onClose }) => {
-  const totalAmount = cart.reduce((cur, acc) => (acc.price += cur), 0);
+  const {
+    cart,
+    incrementItemQuantity,
+    decrementItemQuantity,
+    removeAllCartItems,
+    removeCartItem,
+  } = useCart();
 
-  const incrementAmount = () => {};
-
-  const decrementItemAmount = () => {};
+  const totalAmount = cart
+    .slice()
+    .reduce((acc, cur) => (acc += cur.price * cur.quantity), 0);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -49,7 +54,10 @@ const CartOverLay: React.FC<Props> = ({ onClose }) => {
           <p className="text-[18px] font-bold uppercase">
             Cart ({cart.length})
           </p>
-          <span className="text-dark/50 hover:text-primary cursor-pointer transition-all duration-200">
+          <span
+            onClick={removeAllCartItems}
+            className="text-dark/50 hover:text-primary cursor-pointer transition-all duration-200"
+          >
             Remove all
           </span>
         </header>
@@ -58,7 +66,7 @@ const CartOverLay: React.FC<Props> = ({ onClose }) => {
             <li key={item.name} className="flex flex-row gap-x-4">
               <div className="bg-light rounded-lg p-3">
                 <Image
-                  src={item.imageSrc}
+                  src={item.imageUrl}
                   alt={`Image of ${item.name}`}
                   height={40}
                   width={36.1}
@@ -74,20 +82,24 @@ const CartOverLay: React.FC<Props> = ({ onClose }) => {
                   </p>
                 </div>
                 <button className="bg-light text-darker flex flex-row items-center gap-x-5 px-[15.5px] py-2 text-[13px] font-bold md:py-[15px]">
-                  <GoPlus
-                    height={18}
-                    width={16}
-                    color="black"
-                    className="hover:text-primary cursor-pointer transition-all duration-200"
-                    onClick={incrementAmount}
-                  />
-                  <span>{item.amount}</span>
                   <HiOutlineMinusSmall
                     height={18}
                     width={16}
                     color="black"
                     className="hover:text-primary cursor-pointer transition-all duration-200"
-                    onClick={decrementItemAmount}
+                    onClick={
+                      item.quantity > 1
+                        ? () => decrementItemQuantity(item.id)
+                        : () => removeCartItem(item.id)
+                    }
+                  />
+                  <span>{item.quantity}</span>
+                  <GoPlus
+                    height={18}
+                    width={16}
+                    color="black"
+                    className="hover:text-primary cursor-pointer transition-all duration-200"
+                    onClick={() => incrementItemQuantity(item.id)}
                   />
                 </button>
               </div>

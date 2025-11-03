@@ -5,7 +5,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import LinkComponent from "./LinkComponent";
 import { MdMenu } from "react-icons/md";
 import { useState } from "react";
-import CartOverLay from "../CartOverLay";
+import CartOverLay from "../pages/cart/CartOverLay";
 
 const Header: React.FC = () => {
   const [isCartOverLayOpen, setIsCartOverLayOpen] = useState(false);

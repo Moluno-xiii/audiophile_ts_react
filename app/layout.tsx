@@ -3,6 +3,9 @@ import { Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "./_components/ui/Header";
 import Footer from "./_components/ui/Footer";
+import ConvexClientProvider from "./ConvexClientProvider";
+import { Toaster } from "react-hot-toast";
+import { CartContextProvider } from "./_contexts/CartContextProvider";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -22,14 +25,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={` ${manrope.className} antialiased flex flex-col bg-darker`}
+        className={` ${manrope.className} bg-darker flex flex-col antialiased`}
       >
-        <Header />
-        <main
-        // className="mx-auto max-w-[1110px]"
-        >
-          {children}
-        </main>
+        <ConvexClientProvider>
+          <CartContextProvider>
+            <Header />
+            <main
+            // className="mx-auto max-w-[1110px]"
+            >
+              <Toaster />
+              {children}
+            </main>
+          </CartContextProvider>
+        </ConvexClientProvider>
         <Footer />
       </body>
     </html>

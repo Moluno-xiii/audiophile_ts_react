@@ -8,6 +8,9 @@
  * @module
  */
 
+import type * as mutations_createOrder from "../mutations/createOrder.js";
+import type * as queries_getOrderWithItems from "../queries/getOrderWithItems.js";
+
 import type {
   ApiFromModules,
   FilterApi,
@@ -22,7 +25,10 @@ import type {
  * const myFunctionReference = api.myModule.myFunction;
  * ```
  */
-declare const fullApi: ApiFromModules<{}>;
+declare const fullApi: ApiFromModules<{
+  "mutations/createOrder": typeof mutations_createOrder;
+  "queries/getOrderWithItems": typeof queries_getOrderWithItems;
+}>;
 declare const fullApiWithMounts: typeof fullApi;
 
 export declare const api: FilterApi<

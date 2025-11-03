@@ -5,35 +5,37 @@ export default defineSchema({
   customer_details: defineTable({
     name: v.string(),
     phone: v.string(),
-    shipping_address: v.string(),
-    zip_code: v.string(),
+    address: v.string(),
+    zipCode: v.number(),
     city: v.string(),
     country: v.string(),
+    email: v.string(),
   }),
 
   payment: defineTable({
     method: v.string(),
-    order_id: v.id("order"),
-    e_money_number: v.optional(v.string()),
-    e_money_pin: v.optional(v.string()),
-    user_id: v.id("customer_details"),
+    orderId: v.id("order"),
+    eMoneyNumber: v.optional(v.number()),
+    eMoneyPin: v.optional(v.number()),
+    customerId: v.id("customer_details"),
   }),
 
   order: defineTable({
-    user_id: v.id("customer_details"),
-    sub_total: v.number(),
+    customerId: v.id("customer_details"),
+    total: v.number(),
     taxes: v.number(),
-    grand_total: v.number(),
     status: v.string(),
-    time_stamp: v.number(),
+    timeStamp: v.string(),
   }),
 
   order_items: defineTable({
-    order_id: v.id("order"),
+    orderId: v.id("order"),
     name: v.string(),
     price: v.number(),
     quantity: v.number(),
-    user_id: v.id("customer_details"),
+    customerId: v.id("customer_details"),
+    totalAmount: v.number(),
+    imageUrl: v.string(),
   }),
 });
 
