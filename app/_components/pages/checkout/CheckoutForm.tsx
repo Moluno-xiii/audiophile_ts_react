@@ -30,7 +30,7 @@ const CheckoutForm = forwardRef<HTMLFormElement, FormProps>(
     >("e-money");
     const [formErrors, setFormErrors] = useState({ email: "" });
     const createOrder = useMutation(api.mutations.createOrder.createOrder);
-    const { cart } = useCart();
+    const { cart, removeAllCartItems } = useCart();
 
     const submitForm = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -93,7 +93,7 @@ const CheckoutForm = forwardRef<HTMLFormElement, FormProps>(
           zipCode,
         } = finalData;
         setIsLoading(true);
-        await createOrder({
+        const req = await createOrder({
           payment: {
             eMoneyNumber,
             eMoneyPin,
@@ -115,9 +115,11 @@ const CheckoutForm = forwardRef<HTMLFormElement, FormProps>(
           },
           order_items: totalItems,
         });
+        console.log("create order mutation fn", req);
         toast.success("Order placed succesfully");
         handleOpenOverlay();
       } catch (error: unknown) {
+        console.error("err", error);
         toast.error(
           error instanceof Error
             ? error.message

@@ -18,6 +18,7 @@ const getOrderInfo = async (
     console.log("order from getorderinfo", order);
     return { data: order as unknown as OrderDetails, error: "" };
   } catch (err: unknown) {
+    console.log(err);
     if (err instanceof Error) {
       console.log(err.message);
       console.log("err name", err.name);
