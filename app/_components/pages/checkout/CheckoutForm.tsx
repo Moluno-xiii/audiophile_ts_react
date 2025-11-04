@@ -9,7 +9,7 @@ import {
 } from "react";
 import Input from "../../ui/Input";
 import toast from "react-hot-toast";
-import { useMutation } from "convex/react";
+import { useAction, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import useCart from "@/app/_contexts/CartContextProvider";
 
@@ -30,11 +30,14 @@ const CheckoutForm = forwardRef<HTMLFormElement, FormProps>(
     >("e-money");
     const [formErrors, setFormErrors] = useState({ email: "" });
     const createOrder = useMutation(api.mutations.createOrder.createOrder);
-    const { cart, removeAllCartItems } = useCart();
+    const sendEmail = useAction(api.actions.sendEmail.default);
+
+    const { cart } = useCart();
 
     const submitForm = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const formData = new FormData(e.currentTarget);
+      const form = e.currentTarget;
+      const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries());
       const finalData = {
         ...data,
@@ -54,7 +57,6 @@ const CheckoutForm = forwardRef<HTMLFormElement, FormProps>(
         eMoneyNumber?: number;
         method: "e-money" | "cash-on-delivery";
       };
-      console.log("data", finalData);
       if (!emailRegex.test(data.email as string)) {
         setFormErrors({ email: "Invalid email address" });
         toast.error("Invalid email address");
@@ -78,8 +80,8 @@ const CheckoutForm = forwardRef<HTMLFormElement, FormProps>(
         });
       });
 
-      console.log("total items from submit", totalItems);
       try {
+        setFormErrors({ email: "" });
         const {
           eMoneyNumber,
           eMoneyPin,
@@ -115,7 +117,14 @@ const CheckoutForm = forwardRef<HTMLFormElement, FormProps>(
           },
           order_items: totalItems,
         });
-        console.log("create order mutation fn", req);
+        await sendEmail({
+          email,
+          orderId: req.orderId,
+          order_items: totalItems,
+          customer_info: { address, city, country, name, phone, zipCode },
+        });
+        // e.currentTarget.reset();
+        form.reset();
         toast.success("Order placed succesfully");
         handleOpenOverlay();
       } catch (error: unknown) {
@@ -170,7 +179,7 @@ const CheckoutForm = forwardRef<HTMLFormElement, FormProps>(
           <h3 className="text-primary mb-4 text-[13px] font-bold uppercase">
             Payment Details
           </h3>
-          <div className="flex flex-col justify-between gap-x-2 md:flex-row">
+          <div className="flex flex-col justify-between gap-x-2 gap-y-3 md:flex-row">
             <p className="text-darker flex-1 text-[18px] font-bold">
               Payment Method
             </p>

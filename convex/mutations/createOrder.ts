@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { mutation } from "../_generated/server";
+import { internal } from "../_generated/api";
 
 export const createOrder = mutation({
   args: {
@@ -21,7 +22,6 @@ export const createOrder = mutation({
       status: v.string(),
       taxes: v.number(),
       total: v.number(),
-      // timeStamp: v.string(),
     }),
     order_items: v.array(
       v.object({
@@ -33,10 +33,10 @@ export const createOrder = mutation({
       }),
     ),
   },
-  handler: async ({ db }, { customer_info, payment, order, order_items }) => {
-    const customerId = await db.insert("customer_details", customer_info);
+  handler: async (ctx, { customer_info, payment, order, order_items }) => {
+    const customerId = await ctx.db.insert("customer_details", customer_info);
     console.log("custoemr id from customer_info insert", customerId);
-    const orderId = await db.insert("order", {
+    const orderId = await ctx.db.insert("order", {
       ...order,
       customerId,
       timeStamp: new Date().toLocaleString(),
@@ -44,12 +44,15 @@ export const createOrder = mutation({
     console.log("order id from order insert", orderId);
 
     for (const item of order_items) {
-      await db.insert("order_items", { ...item, customerId, orderId });
+      await ctx.db.insert("order_items", { ...item, customerId, orderId });
     }
 
-    await db.insert("payment", { ...payment, orderId, customerId });
+    await ctx.db.insert("payment", { ...payment, orderId, customerId });
 
-    // use nodamailer to send email
+    // await ctx.scheduler.runAfter(0, internal.actions.sendEmail, {
+    //   email: customer_info.email,
+    //   orderId,
+    // });
 
     return {
       message: "Order placed successfully, check you email",
@@ -58,8 +61,3 @@ export const createOrder = mutation({
     };
   },
 });
-
-// customer_info : {name, emailAddress, phoneNumber, address, zipCode, city, country}
-// payment : {customer_id, payment_method, e-money-pin(if method is e-money), e-money-number, order_id },
-// order : {customer_id, status, timestamp, taxes, total }
-// order_item : {customer_id, order_id, quantity, total(quantity * price), price, cummulative_amount, name}

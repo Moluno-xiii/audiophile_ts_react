@@ -6,13 +6,20 @@ import LinkComponent from "./LinkComponent";
 import { MdMenu } from "react-icons/md";
 import { useState } from "react";
 import CartOverLay from "../pages/cart/CartOverLay";
+import Menu from "../Menu";
 
 const Header: React.FC = () => {
   const [isCartOverLayOpen, setIsCartOverLayOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
-    <header className="border-b-lighter/20 bg-darker sticky top-0 flex flex-row items-center justify-between border-b px-6 pt-8 pb-8 md:pb-9">
+    <header className="border-b-lighter/20 bg-darker sticky top-0 z-50 flex flex-row items-center justify-between border-b px-6 pt-8 pb-8 md:pb-9">
       <div className="flex flex-row gap-x-11">
-        <MdMenu size={24} className="block lg:hidden" color="white" />
+        <MdMenu
+          size={24}
+          className="block lg:hidden"
+          color="white"
+          onClick={() => setIsMenuOpen(true)}
+        />
         <Link href="/">
           <Image
             height={25}
@@ -35,6 +42,7 @@ const Header: React.FC = () => {
       {isCartOverLayOpen && (
         <CartOverLay onClose={() => setIsCartOverLayOpen(false)} />
       )}
+      {isMenuOpen && <Menu onClose={() => setIsMenuOpen(false)} />}
     </header>
   );
 };

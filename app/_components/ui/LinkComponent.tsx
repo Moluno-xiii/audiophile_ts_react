@@ -37,7 +37,8 @@ export default LinkComponent;
 
 const NavLink = ({ link }: { link: { route: string; name: string } }) => {
   const pathName = usePathname();
-  const isActive = pathName.includes(link.name);
+  const isActive =
+    pathName.includes(link.name) || (link.name === "home" && pathName === "/");
   return (
     <li key={link.route}>
       <Link

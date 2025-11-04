@@ -1,5 +1,5 @@
 import OrderDetails from "@/app/_components/OrderDetails";
-import { getOrderInfo } from "@/app/actions";
+import { getOrderInfo } from "@/app/actions/actions";
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -16,7 +16,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   // if (!data) return notFound();
   if (!data)
     return (
-      <div className="bg-lighter flex h-dvh w-dvw flex-col items-center justify-center gap-y-4">
+      <div className="bg-lighter flex flex-1 flex-col items-center justify-center gap-y-4">
         <p className="text-darker text-xl">An error occured</p>
         <span className="text-red-600">{error}</span>
       </div>

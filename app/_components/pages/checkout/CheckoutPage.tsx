@@ -8,7 +8,7 @@ import CheckoutConfirmationModal from "./CheckoutConfirmationModal";
 import useCart from "@/app/_contexts/CartContextProvider";
 
 const CheckoutPage: React.FC = () => {
-  const { cart } = useCart();
+  const { cart, removeAllCartItems } = useCart();
   const [
     isCheckoutConfirmationOverLayOpen,
     setIsCheckoutConfirmationOverLayOpen,
@@ -19,6 +19,11 @@ const CheckoutPage: React.FC = () => {
 
   const triggerSubmit = () => {
     formRef.current?.requestSubmit();
+  };
+
+  const onCloseCheckoutConfirmationOverlay = () => {
+    setIsCheckoutConfirmationOverLayOpen(false);
+    removeAllCartItems();
   };
 
   const cartItemsTotalAmount = cart
@@ -33,7 +38,7 @@ const CheckoutPage: React.FC = () => {
       <section className="mx-auto max-w-[1110px] px-6">
         <GoBack />
         <div className="flex flex-col justify-between gap-x-10 gap-y-8 lg:flex-row">
-          <section className="bg-lighter flex flex-1 flex-col rounded-lg p-6 lg:gap-y-10 lg:px-10 lg:py-14">
+          <section className="bg-lighter flex flex-1 flex-col rounded-lg p-6 md:gap-y-10 lg:px-10 lg:py-14">
             <h2 className="text-[32px] font-bold uppercase">checkout</h2>
             <CheckoutForm
               handleOpenOverlay={() =>
@@ -58,7 +63,8 @@ const CheckoutPage: React.FC = () => {
       </section>
       {isCheckoutConfirmationOverLayOpen && (
         <CheckoutConfirmationModal
-          onClose={() => setIsCheckoutConfirmationOverLayOpen(false)}
+          onClose={onCloseCheckoutConfirmationOverlay}
+          grandTotal={grandTotal}
         />
       )}
     </div>

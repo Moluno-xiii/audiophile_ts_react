@@ -1,7 +1,9 @@
-import { fetchQuery } from "convex/nextjs";
-import { OrderDetails } from "./types";
+"use server";
+
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+import { fetchQuery } from "convex/nextjs";
+import { OrderDetails } from "../types";
 
 const getOrderInfo = async (
   id: string,
@@ -41,3 +43,6 @@ const getOrderInfo = async (
 };
 
 export { getOrderInfo };
+
+// "j97f6bppw92x5fdh8e2y5jbn9d7tptth";
+// "j97ab4dxapn403s4yesbdhkg7n7tp3ej";

@@ -40,7 +40,7 @@ const ShopSection: React.FC = () => {
           </Link>
         </div>
       </section>
-      <section className="mx-auto mb-8 flex max-w-[1110px] flex-row items-center justify-between bg-[#DDDDDD] px-3 max-md:gap-x-4 md:pl-24 lg:mb-12">
+      <section className="mx-auto mb-8 flex max-w-[1110px] flex-row items-center justify-between bg-[#DDDDDD] px-3 max-md:gap-x-4 max-md:py-3 md:pl-24 lg:mb-12">
         <div className="flex flex-1 flex-col gap-y-8">
           <h3 className="text-2xl font-bold">ZX7 SPEAKER</h3>
           <Link href={"/speakers/2"}>
@@ -59,7 +59,7 @@ const ShopSection: React.FC = () => {
           src={"/bigger-speaker.png"}
           height={200}
           width={200}
-          className="block md:hidden"
+          className="block h-[150px] w-[150px] md:hidden"
         />
       </section>
       <section className="mx-auto flex max-w-[1110px] flex-col justify-between gap-[11px] md:flex-row lg:gap-[30px]">
