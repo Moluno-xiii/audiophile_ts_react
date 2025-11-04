@@ -29,7 +29,6 @@ const SpeakerDisplay: React.FC = () => {
               text="Shop"
               variant="link"
               onClick={() => router.push(`/${image.title}`)}
-              // additionalStyles="mt-[15px]"
             />
           </div>
         </li>

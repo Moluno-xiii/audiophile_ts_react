@@ -25,7 +25,6 @@ const Menu = ({ onClose }: { onClose: () => void }) => {
     >
       <div className="bg-lighter z-50 min-h-[340px] rounded-b-lg px-10 pt-20 max-md:pb-10">
         <SpeakerDisplay />
-        {/* <p>what the helly?</p> */}
       </div>
     </div>
   );

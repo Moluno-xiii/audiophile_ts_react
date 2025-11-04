@@ -123,12 +123,10 @@ const CheckoutForm = forwardRef<HTMLFormElement, FormProps>(
           order_items: totalItems,
           customer_info: { address, city, country, name, phone, zipCode },
         });
-        // e.currentTarget.reset();
         form.reset();
         toast.success("Order placed succesfully");
         handleOpenOverlay();
       } catch (error: unknown) {
-        console.error("err", error);
         toast.error(
           error instanceof Error
             ? error.message

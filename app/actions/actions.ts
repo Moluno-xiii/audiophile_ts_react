@@ -10,24 +10,16 @@ const getOrderInfo = async (
 ): Promise<{ error: string; data: OrderDetails | null }> => {
   "use server";
   try {
-    console.log("i was called");
     const order = await fetchQuery(
       api.queries.getOrderWithItems.getOrderWithItems,
       {
         orderId: id as Id<"order">,
       },
     );
-    console.log("order from getorderinfo", order);
     return { data: order as unknown as OrderDetails, error: "" };
   } catch (err: unknown) {
     console.log(err);
     if (err instanceof Error) {
-      console.log(err.message);
-      console.log("err name", err.name);
-      console.log(
-        "err Path",
-        err.message.includes("ArgumentValidationError:") ? "true" : "false",
-      );
       if (err.message.includes("Value does not match validator.")) {
         return {
           data: null,
@@ -37,12 +29,8 @@ const getOrderInfo = async (
 
       return { data: null, error: err.message };
     }
-    // if (err instanceof Argumentval)
     return { data: null, error: "An unexpected error  occured, try again" };
   }
 };
 
 export { getOrderInfo };
-
-// "j97f6bppw92x5fdh8e2y5jbn9d7tptth";
-// "j97ab4dxapn403s4yesbdhkg7n7tp3ej";

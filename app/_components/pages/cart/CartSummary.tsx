@@ -4,7 +4,6 @@ import Image from "next/image";
 import useCart from "../../../_contexts/CartContextProvider";
 
 type Props = {
-  // handleOpenOverlay: () => void;
   triggerSubmit: () => void;
   cartItemsTotalAmount: number;
   shippingCost: number;
@@ -14,7 +13,6 @@ type Props = {
 };
 
 const CartSummmary = ({
-  // handleOpenOverlay,
   triggerSubmit,
   cartItemsTotalAmount,
   shippingCost,

@@ -58,10 +58,6 @@ const Footer: React.FC = () => {
             aria-labelledby="social media links"
             className="flex flex-row gap-x-3 text-white max-md:mt-6 md:gap-x-1 lg:hidden"
           >
-            {/* <ul
-            aria-labelledby="social media links"
-            className="flex-1 flex-row gap-x-1 text-white md:flex md:justify-end md:self-end lg:hidden"
-          > */}
             <li>
               <FaFacebookSquare
                 size={24}

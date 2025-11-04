@@ -49,7 +49,6 @@ const CartOverLay: React.FC<Props> = ({ onClose }) => {
         className="bg-lighter right-6 z-50 flex flex-col gap-y-8 rounded-lg px-7 py-8 md:absolute md:right-10 md:min-w-[377px] lg:right-[165px]"
         onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
       >
-        {/* <IoMdClose onClick={onClose} color="black" /> */}
         <header className="flex flex-row items-center justify-between">
           <p className="text-[18px] font-bold uppercase">
             Cart ({cart.length})

@@ -35,24 +35,17 @@ export const createOrder = mutation({
   },
   handler: async (ctx, { customer_info, payment, order, order_items }) => {
     const customerId = await ctx.db.insert("customer_details", customer_info);
-    console.log("custoemr id from customer_info insert", customerId);
     const orderId = await ctx.db.insert("order", {
       ...order,
       customerId,
       timeStamp: new Date().toLocaleString(),
     });
-    console.log("order id from order insert", orderId);
 
     for (const item of order_items) {
       await ctx.db.insert("order_items", { ...item, customerId, orderId });
     }
 
     await ctx.db.insert("payment", { ...payment, orderId, customerId });
-
-    // await ctx.scheduler.runAfter(0, internal.actions.sendEmail, {
-    //   email: customer_info.email,
-    //   orderId,
-    // });
 
     return {
       message: "Order placed successfully, check you email",

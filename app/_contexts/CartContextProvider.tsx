@@ -68,7 +68,6 @@ const CartContextProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const decrementItemQuantity = (itemId: string) => {
-    // q=== 1, delete
     setCart((c) =>
       c.map((item) => {
         if (item.id !== itemId) {

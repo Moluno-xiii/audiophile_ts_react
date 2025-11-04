@@ -27,8 +27,6 @@ export default action({
     ),
   },
   handler: async (_, { email, orderId, customer_info, order_items }) => {
-    // Your transporter setup should be here
-    console.log("i rand an action");
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -37,24 +35,19 @@ export default action({
       },
     });
 
-    // const verifyTransport = async () => {
     try {
       const isVerified = await transporter.verify();
-      console.log("verification action", isVerified);
     } catch (error) {
-      console.error("Something Went Wrong", process.env.GOOGLE_APP_PASSWORD);
-      console.error("error message", error);
       throw error;
     }
-    // };
-    // await verifyTransport();
+
     const info = await transporter.sendMail({
       from: `"Audiophile" <molunoprogress@gmail.com>`,
       to: email,
       subject: "Order Summary",
       html: `
   <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
-    <h2 style="color: #00712D;">Thank you for your purchase, ${customer_info.name}!</h2>
+    <h2 style="color: #00712D;">Good day, ${customer_info.name}!</h2>
 
     <p style="font-size: 16px; color: #333;">
       Your order <strong>#${orderId}</strong> has been successfully placed. 
@@ -98,7 +91,7 @@ export default action({
     </div>
 
     <div style="margin-top: 30px; text-align: center;">
-      <a href="https://audiophile-ts-react.vercel.app/${orderId}"
+      <a href="https://audiophile-ts-react.vercel.app/orders/${orderId}"
          style="display: inline-block; padding: 12px 24px; background-color: #00712D; color: #fff;
                 text-decoration: none; border-radius: 6px; font-weight: bold;">
         View Your Order

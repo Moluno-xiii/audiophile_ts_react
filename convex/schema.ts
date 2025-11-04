@@ -38,8 +38,3 @@ export default defineSchema({
     imageUrl: v.string(),
   }),
 });
-
-// customer_details -> name, phone, shipping_address, zip_code, country
-// payment -> method(e-money, cash_on_delivery), order_id, e-money-number, e-money-pin, user_id
-// order -> id, user_id, sub_total, taxes, grand_total, (get shipping details from customer table), sttus, time_stamp
-// order_items -> id, order_id, name, price, quantity, user_id

@@ -22,10 +22,6 @@ const Input: React.FC<Props> = ({
 }) => {
   if (variant === "option") {
     return (
-      //   <div className="border-primary accent-primary cursor-pointer rounded-lg border px-6 py-[18px]">
-      //   <option className="accent-primary" value={value}>
-      //     {value}
-      //   </option>
       <div className="border-border flex w-full min-w-full flex-row items-center justify-start gap-x-5 rounded-lg border py-[18px] pl-4">
         <input
           {...rest}
@@ -56,7 +52,6 @@ const Input: React.FC<Props> = ({
         name={name}
         id={name}
         className="border-border text-darker/40 focus:outline-primary rounded-lg border py-[18px] pl-6 text-sm font-bold"
-        // className="focus:border-primary active:border-primary border-border text-darker rounded-lg border border-white py-[18px] pl-6 text-sm font-bold focus:outline-none"
       />
     </div>
   );

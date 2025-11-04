@@ -30,9 +30,7 @@ export default function RootLayout({
         <ConvexClientProvider>
           <CartContextProvider>
             <Header />
-            <main
-            // className="mx-auto max-w-[1110px]"
-            >
+            <main>
               <Toaster />
               {children}
             </main>
