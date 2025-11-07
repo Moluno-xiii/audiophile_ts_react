@@ -18,7 +18,6 @@ const getOrderInfo = async (
     );
     return { data: order as unknown as OrderDetails, error: "" };
   } catch (err: unknown) {
-    console.log(err);
     if (err instanceof Error) {
       if (err.message.includes("Value does not match validator.")) {
         return {

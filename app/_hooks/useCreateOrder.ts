@@ -1,3 +1,5 @@
+"use client";
+
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import useCart from "../_contexts/CartContextProvider";
 import toast from "react-hot-toast";

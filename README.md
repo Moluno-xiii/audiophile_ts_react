@@ -5,8 +5,9 @@ Built for HNG 13 frontend stage 3a task.
 
 ## Features
 
-- Local state cart storage with context
+- Local state cart storage with context and Local storage.
 - DB storage on cart checkout (with convex)
+- All products stored on Convex.
 - Email summary on successful checkout (with nodemailer)
 - Fully responsive
 

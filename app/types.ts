@@ -1,3 +1,5 @@
+import { Doc } from "@/convex/_generated/dataModel";
+
 type PageDataType = {
   imageSrc: string;
   isNewProduct: boolean;
@@ -49,6 +51,8 @@ type UserDetails = {
   _id: string;
 };
 
+type DeviceType = Doc<"devices">;
+
 type OrderDetails = {
   customerId: string;
   items: OrderItem[];
@@ -61,4 +65,4 @@ type OrderDetails = {
   _id: string;
 };
 
-export type { PageDataType, DeviceDetails, OrderDetails };
+export type { PageDataType, DeviceDetails, OrderDetails, DeviceType };

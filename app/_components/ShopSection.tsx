@@ -31,7 +31,7 @@ const ShopSection: React.FC = () => {
             Upgrade to premium speakers that are phenomenally built to deliver
             truly remarkable sound.
           </p>
-          <Link href={"/speakers/1"}>
+          <Link href={"/speakers/zx9 speaker"}>
             <Button
               text="see product"
               variant="transparent"
@@ -40,10 +40,10 @@ const ShopSection: React.FC = () => {
           </Link>
         </div>
       </section>
-      <section className="mx-auto mb-8 flex max-w-[1110px] flex-row items-center justify-between bg-[#DDDDDD] px-3 max-md:gap-x-4 max-md:py-3 md:pl-24 lg:mb-12">
+      <section className="mx-auto mb-8 flex max-w-[1110px] flex-row items-center justify-between bg-[#DDDDDD] max-md:gap-x-4 max-md:py-3 md:pl-24 lg:mb-12">
         <div className="flex flex-1 flex-col gap-y-8">
           <h3 className="text-2xl font-bold">ZX7 SPEAKER</h3>
-          <Link href={"/speakers/2"}>
+          <Link href={"/speakers/zx7 speaker"}>
             <Button text="see product" variant="transparent" />
           </Link>
         </div>
@@ -72,7 +72,7 @@ const ShopSection: React.FC = () => {
         />
         <div className="bg-light flex flex-1 flex-col items-center justify-center gap-y-8 rounded-md max-md:p-10">
           <h3 className="text-2xl font-bold">YX1 EARPHONES</h3>
-          <Link href={"/earphones/1"}>
+          <Link href={"/earphones/yx1 wireless earphones"}>
             <Button text="see product" variant="transparent" />
           </Link>
         </div>

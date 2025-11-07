@@ -1,17 +1,20 @@
 import ProuctDetailsContainer from "@/app/_components/ui/reusables/ProuctDetailsContainer";
-import { headPhoneDetailsPageData, headPhonesPageData } from "@/app/data";
+import { api } from "@/convex/_generated/api";
+import { fetchQuery } from "convex/nextjs";
 import { notFound } from "next/navigation";
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
+  const { device } = await fetchQuery(
+    api.queries.getDeviceByName.getDeviceByName,
+    { name: decodeURIComponent(id) },
+  );
 
-  const headPhone = headPhonesPageData.find((h) => h.id === id);
-
-  if (!headPhone) return notFound();
+  if (!device.length) return notFound();
 
   return (
     <div className="text-lighter bg-lighter">
-      <ProuctDetailsContainer data={headPhoneDetailsPageData} id={id} />
+      <ProuctDetailsContainer data={device[0]} />
     </div>
   );
 };

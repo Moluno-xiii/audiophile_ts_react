@@ -1,5 +1,5 @@
 "use client";
-import { DeviceDetails } from "@/app/types";
+import { DeviceType } from "@/app/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -12,14 +12,12 @@ import { HiOutlineMinusSmall } from "react-icons/hi2";
 import { GoPlus } from "react-icons/go";
 
 interface Props {
-  data: DeviceDetails[];
-  id: string;
+  data: DeviceType;
 }
 
-const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
+const ProuctDetailsContainer: React.FC<Props> = ({ data }) => {
   const [itemAmount, setItemAmount] = useState(1);
   const router = useRouter();
-  const deviceData = data.find((h) => h.id === id);
   const { addCartItem } = useCart();
 
   const decrementItemAmount = () => {
@@ -40,43 +38,35 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
       >
         <div className="bg-light flex flex-col items-center justify-center rounded-md max-lg:mb-13 md:px-24 md:py-16">
           <Image
-            src={deviceData!.mainImage}
-            alt={`Image for ${deviceData?.title}`}
+            src={data!.mainImage}
+            alt={`Image for ${data.name}`}
             width={349.24}
             height={386}
             className="hidden lg:block lg:flex-1"
           />
           <Image
-            src={deviceData!.mainImage}
-            alt={`Image for ${deviceData?.title}`}
+            src={data!.mainImage}
+            alt={`Image for ${data.name}`}
             width={280}
             height={480}
             className="block max-md:size-[327px] md:min-h-[480px] md:max-w-[200px] lg:hidden"
           />
         </div>
         <div className="flex flex-1 flex-col justify-center gap-y-6">
-          {deviceData?.isNewproduct && (
+          {data.isNewProduct && (
             <p className="text-primary tracking-[10px]">NEW PRODUCT</p>
           )}
           <h2 className="text-darker mx-auto max-w-xl text-start text-[28px] font-bold uppercase md:text-[44px] lg:text-[56px]">
-            {deviceData?.title}
+            {data.name}
           </h2>
           <p className="text-darker/50 max-w-xl text-[15px]">
-            {deviceData?.description}
+            {data?.description}
           </p>
           <p className="text-darker text-[18px] font-bold">
-            $ {deviceData!.price.toLocaleString()}
+            $ {data.price.toLocaleString()}
           </p>
           <div className="flex flex-row items-center gap-x-4">
             <button className="bg-light text-darker flex flex-row items-center gap-x-5 px-[15.5px] py-2 text-[13px] font-bold md:py-[15px]">
-              <GoPlus
-                height={18}
-                width={16}
-                color="black"
-                className="hover:text-primary cursor-pointer transition-all duration-200"
-                onClick={incrementAmount}
-              />
-              <span>{itemAmount}</span>
               <HiOutlineMinusSmall
                 height={18}
                 width={16}
@@ -84,15 +74,23 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
                 className="hover:text-primary cursor-pointer transition-all duration-200"
                 onClick={decrementItemAmount}
               />
+              <span>{itemAmount}</span>
+              <GoPlus
+                height={18}
+                width={16}
+                color="black"
+                className="hover:text-primary cursor-pointer transition-all duration-200"
+                onClick={incrementAmount}
+              />
             </button>
             <Button
               text="add to cart"
               variant="default"
               onClick={() =>
                 addCartItem({
-                  imageUrl: deviceData!.mainImage,
-                  name: deviceData!.title,
-                  price: deviceData!.price,
+                  imageUrl: data.mainImage,
+                  name: data.name,
+                  price: data.price,
                   quantity: itemAmount,
                 })
               }
@@ -110,7 +108,7 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
             features
           </h2>
           <ul className="flex flex-col gap-y-8">
-            {deviceData?.features.map((feature) => (
+            {data?.features.map((feature) => (
               <li key={feature.id}>
                 <p className="text-darker/50">{feature.text}</p>
               </li>
@@ -122,7 +120,7 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
             in the box
           </h2>
           <ul className="flex flex-col gap-y-2 max-lg:flex-1">
-            {deviceData?.inTheBox.map((item) => (
+            {data?.inTheBox.map((item) => (
               <li
                 className="flex flex-row items-center gap-x-[21px]"
                 key={item.title}
@@ -145,15 +143,15 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
           <Image
             height={280}
             width={445}
-            alt={`Sample images for ${deviceData?.title}`}
-            src={deviceData!.images[0].src}
+            alt={`Sample images for ${data.name}`}
+            src={data!.images[0].src}
             className="max-lg:h-[174px] lg:max-h-[280px]"
           />
           <Image
             height={280}
             width={445}
-            alt={`Sample images for ${deviceData?.title}`}
-            src={deviceData!.images[1].src}
+            alt={`Sample images for ${data.name}`}
+            src={data!.images[1].src}
             className="max-lg:h-[174px] lg:max-h-[280px]"
           />
         </div>
@@ -161,8 +159,8 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
           <Image
             height={592}
             width={635}
-            alt={`Sample images for ${deviceData?.title}`}
-            src={deviceData!.images[2].src}
+            alt={`Sample images for ${data.name}`}
+            src={data!.images[2].src}
             className="max-lg:h-[368px]"
           />
         </div>
@@ -176,7 +174,7 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
           you may also like
         </h2>
         <ul className="flex flex-col justify-between gap-x-3 gap-y-14 md:flex-row lg:gap-x-[30px]">
-          {deviceData?.recommendedDevices.map((device) => (
+          {data.recommendedDevices.map((device) => (
             <li key={device.id} className="flex flex-col gap-y-8 lg:gap-y-8">
               <div className="bg-light justify-center rounded-lg py-4 max-md:flex md:min-h-[318px] md:px-[37px] md:py-[62px] lg:px-[100px] lg:py-[62px]">
                 <Image
@@ -192,7 +190,13 @@ const ProuctDetailsContainer: React.FC<Props> = ({ data, id }) => {
               </p>
               <Button
                 text="see product"
-                onClick={() => router.push(device.deviceUrl)}
+                onClick={() =>
+                  router.push(
+                    device.category === "headphones"
+                      ? `/${device.category}/${device.name} headphones`
+                      : `/${device.category}/${device.name}`,
+                  )
+                }
                 additionalStyles="mt-2 self-center"
               />
             </li>

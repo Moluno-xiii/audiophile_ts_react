@@ -1,5 +1,12 @@
 "use client";
-import { createContext, ReactNode, useContext, useState } from "react";
+
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import toast from "react-hot-toast";
 
 type CartItem = {
@@ -29,7 +36,20 @@ const CartContext = createContext<CartContextType | undefined>({
 });
 
 const CartContextProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  // const storedCart = localStorage.getItem("cart");
+  // const initialCart: CartItem[] = storedCart ? JSON.parse(storedCart) : [];
+  // const [cart, setCart] = useState<CartItem[]>(initialCart ?? []);
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    if (typeof window !== "undefined") {
+      const storedCart = localStorage.getItem("cart");
+      return storedCart ? JSON.parse(storedCart) : [];
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const addCartItem = (newItem: Omit<CartItem, "id">) => {
     if (newItem.quantity === 0) return;

@@ -10,6 +10,8 @@
 
 import type * as actions_sendEmail from "../actions/sendEmail.js";
 import type * as mutations_createOrder from "../mutations/createOrder.js";
+import type * as queries_getDeviceByName from "../queries/getDeviceByName.js";
+import type * as queries_getDevicesByCategory from "../queries/getDevicesByCategory.js";
 import type * as queries_getOrderWithItems from "../queries/getOrderWithItems.js";
 
 import type {
@@ -29,6 +31,8 @@ import type {
 declare const fullApi: ApiFromModules<{
   "actions/sendEmail": typeof actions_sendEmail;
   "mutations/createOrder": typeof mutations_createOrder;
+  "queries/getDeviceByName": typeof queries_getDeviceByName;
+  "queries/getDevicesByCategory": typeof queries_getDevicesByCategory;
   "queries/getOrderWithItems": typeof queries_getOrderWithItems;
 }>;
 declare const fullApiWithMounts: typeof fullApi;

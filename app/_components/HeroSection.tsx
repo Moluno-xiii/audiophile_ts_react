@@ -20,7 +20,10 @@ const HeroSection: React.FC = () => {
             Experience natural, lifelike audio and exceptional build quality
             made for the passionate music enthusiast.
           </p>
-          <Link href={"/headphones/1"} className="self-center">
+          <Link
+            href={"/headphones/xx99 mark ii headphones"}
+            className="self-center"
+          >
             <Button
               text="see product"
               additionalStyles="mt-4 self-center"

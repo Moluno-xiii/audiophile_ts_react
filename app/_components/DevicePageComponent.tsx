@@ -2,19 +2,13 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { DeviceType } from "../types";
 import AudioGearSectionFooter from "./ui/reusables/AudioGearSectionFooter";
 import Button from "./ui/reusables/Button";
 import SpeakerDisplay from "./ui/reusables/SpeakerDisplay";
 
 type Props = {
-  devicesData: {
-    imageSrc: string;
-    isNewProduct: boolean;
-    title: string;
-    paragraph: string;
-    route: string;
-    id: string;
-  }[];
+  devicesData: DeviceType[];
 };
 
 const DevicePageComponent: React.FC<Props> = ({ devicesData }) => {
@@ -25,13 +19,13 @@ const DevicePageComponent: React.FC<Props> = ({ devicesData }) => {
         <ul className="mb-[120px] flex flex-col gap-y-[120px] px-0 md:px-10 lg:gap-y-40 lg:px-0">
           {devicesData.map((headphone, index) => (
             <li
-              key={headphone.imageSrc}
+              key={headphone.name}
               className={`flex flex-col justify-between gap-x-4 md:gap-x-24 lg:flex-row ${index % 2 === 0 && "lg:flex-row-reverse"}`}
             >
               <div className="bg-light flex flex-col items-center justify-center rounded-md max-lg:mb-13 md:px-24 md:py-16">
                 <Image
-                  src={headphone.imageSrc}
-                  alt={`Image for ${headphone.title}`}
+                  src={headphone.mainImage}
+                  alt={`Image for ${headphone.name}`}
                   width={349.24}
                   height={386}
                   className="flex-1"
@@ -42,7 +36,7 @@ const DevicePageComponent: React.FC<Props> = ({ devicesData }) => {
                   <p className="text-primary tracking-[10px]">NEW PRODUCT</p>
                 )}
                 <h2 className="text-darker mx-auto max-w-xl text-center text-[28px] font-bold uppercase md:text-[44px] lg:text-[56px]">
-                  {headphone.title}
+                  {headphone.name}
                 </h2>
                 <p className="text-darker/50 max-w-xl text-center text-[15px]">
                   {headphone.paragraph}
@@ -50,7 +44,9 @@ const DevicePageComponent: React.FC<Props> = ({ devicesData }) => {
                 <Button
                   text="see product"
                   variant="default"
-                  onClick={() => router.push(headphone.route)}
+                  onClick={() =>
+                    router.push(`${headphone.category}/${headphone.name}`)
+                  }
                 />
               </div>
             </li>

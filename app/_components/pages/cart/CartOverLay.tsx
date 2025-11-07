@@ -71,7 +71,7 @@ const CartOverLay: React.FC<Props> = ({ onClose }) => {
                   width={36.1}
                 />
               </div>
-              <div className="flex flex-1 flex-row items-center justify-between">
+              <div className="flex flex-1 flex-row items-center justify-between gap-x-4">
                 <div className="flex flex-col">
                   <p className="text-darker text-[15px] font-bold uppercase">
                     {item.name}
